@@ -1,0 +1,143 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+	<section layout:fragment="content">
+
+		<div class="app-title">
+			<div>
+				<h1>
+					<i class="fa fa-dashboard"> Client details </i> 
+				</h1>
+				<p></p>
+			</div>
+			<ul class="app-breadcrumb breadcrumb">
+				<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+				<li class="breadcrumb-item"><a href="#">Client details</a></li>
+			</ul>
+		</div>
+		
+		
+		<div class="row">
+        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">Client details</h3>
+            <div class="tile-body">
+            
+            
+            <div th:object="${client}">
+								Name:
+								<p th:text="*{name}"></p>
+								Status:
+								<p th:text="*{status}"></p>
+								
+								Nip:
+								<p th:text="*{nip}"></p>
+								Created:
+								<p th:text="*{created}"></p>
+								
+								Responsible employee:
+								<p th:if="*{user}" th:text="*{user.name}"></p>
+								
+								<h4 class="tile-title">Contact person</h4>
+								Firstname:
+								<p th:text="*{contactPerson.firstname}"></p>
+								Lastname:
+								<p th:text="*{contactPerson.lastname}"></p>
+								Email:
+								<p th:text="*{contactPerson.email}"></p>
+								Phone:
+								<p th:text="*{contactPerson.phone}"></p>
+								
+								<h4 class="tile-title">Address</h4>
+								Firstname:
+								<p th:text="*{address.country}"></p>
+								Lastname:
+								<p th:text="*{address.region}"></p>
+								Email:
+								<p th:text="*{address.city}"></p>
+								Phone:
+								<p th:text="*{address.street}"></p>
+								Phone:
+								<p th:text="*{address.postcode}"></p>
+						
+							</div>
+							
+            
+            </div>
+            <div class="tile-footer"><a class="btn btn-primary" th:href="@{/client/edit/{id}(id=${client.id})}">Edit</a></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="tile">
+            <div class="tile-title-w-btn">
+              <h3 class="title">Contracts</h3>
+              <p><a class="btn btn-primary icon-btn" th:href="@{/contract/new/{id}(id=${id})}"><i class="fa fa-plus"></i>New Contract</a></p>
+            </div>
+            <div class="tile-body">
+	         	<table class="table table-hover table-bordered" id="sampleTable"> 
+					<thead>
+	         		<tr	>
+						<td	th:text="Title"></td>		
+						<td	th:text="Value"></td>
+						<td	th:text="Created"></td>
+						<td	th:text="Author"></td>
+						<td	th:text="Filename"></td>
+						<td	th:text="Accepted"></td>
+						<td	th:text="Accept"></td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr	th:each="document: ${contractList}" >
+						<td	th:text="${document.title}"></td>		
+						<td	th:text="${document.value}"></td>
+						<td	th:text="${document.created}"></td>
+						<td	th:text="${document.author.name}"></td>
+						<td	th:text="${document.filename}"></td>
+						<td	th:text="${document.accepted}"></td>
+						<td><a th:href="@{/contract/accept/{id}(id=${document.id})}" th:text="ACCEPT"></a>
+						<a th:href="@{/contract/print/{id}(id=${document.id})}" th:text="PRINT"></a></td>
+					</tr>
+					</tbody>	
+					
+				</table>
+            </div>
+          </div>
+        
+          <div class="tile">
+            <div class="tile-title-w-btn">
+              <h3 class="title">Events</h3>
+              </div>
+            <div class="tile-body">
+	         	<table class="table table-hover table-bordered" id="sampleTable"> 
+					<thead>
+	         		<tr	>
+						<td	th:text="Title"></td>		
+						<td	th:text="Type"></td>
+						<td	th:text="User"></td>
+						<td	th:text="Time"></td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr	th:each="event: ${eventList}" >
+						<td	th:text="${event.title}"></td>		
+						<td	th:text="${event.type}"></td>
+						<td	th:text="${event.user.name}"></td>
+						<td	th:text="${event.time}"></td>
+						</tr>
+					</tbody>	
+					
+				</table>
+            </div>
+          </div>
+        </div>
+        
+        
+		</div>
+
+	</section>
+</body>
+</html>
